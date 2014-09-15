@@ -1,4 +1,4 @@
-package com.dell.dsg.adapter.k1000.domain;
+package com.dell.dsg.adapter.domain;
 
 
 public class Login {

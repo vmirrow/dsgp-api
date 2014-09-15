@@ -17,7 +17,7 @@ import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
 
 import com.dell.dsg.adapter.ComputerSystemAdapter;
-import com.dell.dsg.adapter.k1000.domain.Login;
+import com.dell.dsg.adapter.domain.Login;
 import com.dell.dsg.domain.ComputerSystem;
 import com.dell.dsg.domain.ComputerSystemBase;
 
@@ -26,15 +26,15 @@ import com.dell.dsg.domain.ComputerSystemBase;
  * 
  * @author vtihomir
  */
-public class K1000Adapter implements ComputerSystemAdapter {
-	static final Logger logger = Logger.getLogger(K1000Adapter.class);
+public class K1000AdapterImpl implements ComputerSystemAdapter {
+	static final Logger logger = Logger.getLogger(K1000AdapterImpl.class);
 
 	private String host;
 	private String user;
 	private String password;
 	private String pid;
 
-	public K1000Adapter(String pid, Properties props) {
+	public K1000AdapterImpl(String pid, Properties props) {
 		super();
 		this.pid = pid;
 		host = props.getProperty(pid + ".host");

@@ -3,6 +3,8 @@ package com.dell.dsg.domain;
 import java.util.Date;
 import java.util.Map;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class ComputerSystem extends ComputerSystemBase {
 	private boolean virtual;
 	private String osVersion;
@@ -100,6 +102,11 @@ public class ComputerSystem extends ComputerSystemBase {
 		setDomain(s_(comp.get("cs_model")));
 		setManufacture(s_(comp.get("cs_model")));
 		setProcessor(s_(comp.get("cs_model")));
+	}
+
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this); 
 	}
 	
 }

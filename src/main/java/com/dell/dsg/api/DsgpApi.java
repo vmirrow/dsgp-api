@@ -31,7 +31,16 @@ public class DsgpApi {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("{pid}/computers")
+	@Path("products")
+	@Wrapped
+	public Response getProducts() {
+		return Response.status(200).entity(factory.getActiveProducts())
+				.build();
+	}
+
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("product/{pid}/computers")
 	@Wrapped
 	public Response getComputerSystems(@PathParam("pid") String pid) {
 		ComputerSystemAdapter adapter = factory.getAdapter(pid);
@@ -41,7 +50,7 @@ public class DsgpApi {
 
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("{pid}/computer/{id}")
+	@Path("product/{pid}/computer/{id}")
 	public ComputerSystem getComputerSystems(@PathParam("pid") String pid,
 			@PathParam("id") String id) {
 		ComputerSystemAdapter adapter = factory.getAdapter(pid);

@@ -2,6 +2,8 @@ package com.dell.dsg.domain;
 
 import java.util.Map;
 
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 
 public class ComputerSystemBase extends Identity {
 	private String name;
@@ -34,8 +36,7 @@ public class ComputerSystemBase extends Identity {
 	
 	@Override
 	public String toString() {
-		return "ComputerSystemBase [name=" + name + ", domain=" + domain
-				+ ", osName=" + osName + "]";
+		return ToStringBuilder.reflectionToString(this); 
 	}
 	
 	@SuppressWarnings("rawtypes")
