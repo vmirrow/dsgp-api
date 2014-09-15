@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Properties;
 
 import javax.annotation.Resource;
+import javax.ws.rs.NotFoundException;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -28,17 +29,24 @@ public class ComputerSystemFactory {
 	public List<Product> getActiveProducts() {
 		String strPids = props.getProperty("pids.active");
 		if (!StringUtils.hasText(strPids)) {
-			throw new UnsupportedOperationException("No active products configured");
+			throw new NotFoundException(
+					"No active products configured");
 		}
 		String[] pids = strPids.split(",");
 		List<Product> products = new ArrayList<Product>();
 		for (String pid : pids) {
-			String tpid = pid.trim();
-			products.add(new Product(tpid, 
-					props.getProperty(tpid + ".type"),
-					props.getProperty(tpid + ".host")));
+			products.add(getProduct(pid.trim()));
 		}
 		return products;
+	}
+
+	/**
+	 * @return product by id
+	 */
+	public Product getProduct(String pid) {
+		validatePid(pid);
+		return new Product(pid, props.getProperty(pid + ".type"),
+				props.getProperty(pid + ".host"));
 	}
 
 	/**
@@ -46,10 +54,14 @@ public class ComputerSystemFactory {
 	 * @return implementation of adapter by pid
 	 */
 	public ComputerSystemAdapter getAdapter(String pid) {
+		validatePid(pid);
+		return new K1000AdapterImpl(pid, props);
+	}
+
+	private void validatePid(String pid) {
 		if (!StringUtils.hasText(props.getProperty(pid + ".type"))) {
-			throw new UnsupportedOperationException("Product id " + pid
+			throw new NotFoundException("Product id " + pid
 					+ " is not supported");
 		}
-		return new K1000AdapterImpl(pid, props);
 	}
 }

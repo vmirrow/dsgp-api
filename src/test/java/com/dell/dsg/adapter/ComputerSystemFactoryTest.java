@@ -1,4 +1,4 @@
-package com.dell.dsg.adapter.k1000;
+package com.dell.dsg.adapter;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class ComputerSystemFactoryTest {
 	ComputerSystemFactory factory;
 
 	@Test
-	public void testGetComputerSystems() {
+	public void testGetProducts() {
 		List<Product> products = factory.getActiveProducts();
 		for (Product prod : products) {
 			logger.info(prod);

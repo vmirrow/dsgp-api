@@ -27,6 +27,7 @@ import com.dell.dsg.domain.ComputerSystemBase;
  */
 @Controller
 @Path(DsgpApi.API_URL)
+@Produces({ MediaType.APPLICATION_JSON })
 public class DsgpApi {
 	public static final String API_URL = "/api";
 
@@ -34,7 +35,11 @@ public class DsgpApi {
 	ComputerSystemFactory factory;
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
+	public String getInfo() {
+		return "DSG Platform API v0.01";
+	}
+
+	@GET
 	@Path("products")
 	@Wrapped
 	public List<Product> getProducts() {
@@ -42,7 +47,12 @@ public class DsgpApi {
 	}
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("product/{pid}")
+	public Product getProduct(@PathParam("pid") String pid) {
+		return factory.getProduct(pid);
+	}
+	
+	@GET
 	@Path("product/{pid}/computers")
 	@Wrapped
 	public List<ComputerSystemBase> getComputerSystems(
@@ -52,7 +62,6 @@ public class DsgpApi {
 	}
 
 	@GET
-	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("product/{pid}/computer/{id}")
 	public ComputerSystem getComputerSystems(@PathParam("pid") String pid,
 			@PathParam("id") String id) {

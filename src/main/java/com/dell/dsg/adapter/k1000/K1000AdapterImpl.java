@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
@@ -15,6 +16,7 @@ import org.apache.log4j.Logger;
 import org.jboss.resteasy.client.jaxrs.ResteasyClient;
 import org.jboss.resteasy.client.jaxrs.ResteasyClientBuilder;
 import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
+import org.springframework.http.HttpStatus;
 
 import com.dell.dsg.adapter.ComputerSystemAdapter;
 import com.dell.dsg.adapter.domain.Login;
@@ -46,6 +48,10 @@ public class K1000AdapterImpl implements ComputerSystemAdapter {
 	public List<ComputerSystemBase> getComputerSystems() {
 		Response response = getTarget().path("machines").request()
 				.accept(MediaType.APPLICATION_JSON_TYPE).get();
+		if (response.getStatus() != HttpStatus.OK.value()) {
+			logger.error(response.getStatusInfo());
+			throw new NotFoundException();
+		}
 		// TODO pojo for k1000?
 		Collection<Map> machines = response.readEntity(Collection.class);
 		List<ComputerSystemBase> computers = new ArrayList<ComputerSystemBase>(); 
@@ -62,6 +68,10 @@ public class K1000AdapterImpl implements ComputerSystemAdapter {
 		Response response = getTarget().path("machine/" + id).request()
 				.accept(MediaType.APPLICATION_JSON_TYPE).get();
 		Map machine = response.readEntity(Map.class);
+		if (response.getStatus() != HttpStatus.OK.value()) {
+			logger.error(response.getStatusInfo());
+			throw new NotFoundException();
+		}
 		ComputerSystem computer = new ComputerSystem(pid);
 		computer.mapK1000(machine);
 		response.close();
