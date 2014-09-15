@@ -15,6 +15,12 @@ import com.dell.dsg.adapter.ComputerSystemAdapter;
 import com.dell.dsg.adapter.ComputerSystemFactory;
 import com.dell.dsg.domain.ComputerSystem;
 
+/**
+ * DSG Platform API
+ * 
+ * @author vtihomir
+ *
+ */
 @Controller
 @Path(DsgpApi.API_URL)
 public class DsgpApi {

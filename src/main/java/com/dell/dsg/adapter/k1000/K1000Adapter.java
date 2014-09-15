@@ -21,6 +21,11 @@ import com.dell.dsg.adapter.k1000.domain.Login;
 import com.dell.dsg.domain.ComputerSystem;
 import com.dell.dsg.domain.ComputerSystemBase;
 
+/**
+ * Implementation of K1000 adapter
+ * 
+ * @author vtihomir
+ */
 public class K1000Adapter implements ComputerSystemAdapter {
 	static final Logger logger = Logger.getLogger(K1000Adapter.class);
 
