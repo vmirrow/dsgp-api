@@ -46,7 +46,7 @@ public class ComputerSystemFactory {
 	 * @return implementation of adapter by pid
 	 */
 	public ComputerSystemAdapter getAdapter(String pid) {
-		if (!StringUtils.hasText(props.getProperty(pid + ".host"))) {
+		if (!StringUtils.hasText(props.getProperty(pid + ".type"))) {
 			throw new UnsupportedOperationException("Product id " + pid
 					+ " is not supported");
 		}

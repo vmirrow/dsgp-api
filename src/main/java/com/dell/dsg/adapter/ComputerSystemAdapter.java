@@ -12,13 +12,13 @@ import com.dell.dsg.domain.ComputerSystemBase;
 public interface ComputerSystemAdapter {
 	
 	/**
-	 * @return
+	 * @return all computer systems
 	 */
 	public List<ComputerSystemBase> getComputerSystems();
 	
 	/**
 	 * @param id
-	 * @return
+	 * @return computer system by id
 	 */
 	public ComputerSystem getComputerById(String id);
 
