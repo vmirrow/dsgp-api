@@ -92,17 +92,20 @@ public class ComputerSystem extends ComputerSystemBase {
 	@SuppressWarnings("rawtypes")
 	public void mapK1000(Map info) {
 		Map comp = (Map) info.get("machine");
+		Map os = (Map) comp.get("operating_system");
+		Map hardware = (Map) comp.get("hardware");
 		//TODO why it has different keys? super.mapK1000(comp);
 		setId(s_(comp.get("id")));
 		setName(s_(comp.get("name")));
 		setOsName(s_(comp.get("os_name")));
-		setOsArchitecture("x64");
-		//TODO data model for k1000? 
-		setModel(s_(comp.get("cs_model")));
-		setBiosName(s_(comp.get("cs_model")));
-		setDomain(s_(comp.get("cs_model")));
-		setManufacture(s_(comp.get("cs_model")));
-		setProcessor("1");
+		setDomain(s_(os.get("Domain")));
+		setOsArchitecture(s_(os.get("Architecture")));
+		setOsVersion(s_(os.get("Version")));
+		setBiosName(s_(hardware.get("BIOS Name")));
+		setBiosVersion(s_(hardware.get("BIOS Version")));
+		setModel(s_(hardware.get("Model")));
+		setManufacture(s_(hardware.get("Manufacturer")));
+		setProcessor(s_(hardware.get("Processors")));
 	}
 
 	@Override

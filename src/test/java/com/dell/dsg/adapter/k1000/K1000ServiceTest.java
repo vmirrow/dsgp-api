@@ -32,7 +32,7 @@ public class K1000ServiceTest {
 	}
 
 	@Test
-	public void testGetComputerSystem() {
+	public void testGetComputerSystemById() {
 		ComputerSystemAdapter adapter = factory.getAdapter("k1d1");
 		ComputerSystem computer = adapter.getComputerById("200");
 		logger.info(computer);

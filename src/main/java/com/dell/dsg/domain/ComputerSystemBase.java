@@ -44,6 +44,7 @@ public class ComputerSystemBase extends Identity {
 		//TODO data model for k1000? 
 		setId(s_(comp.get("ID")));
 		setName(s_(comp.get("NAME")));
+		setDomain("domain");
 		setOsName(s_(comp.get("OS_NAME")));
 	}
 }
