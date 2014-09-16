@@ -1,13 +1,17 @@
 package com.dell.dsg.api;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.commons.lang.StringUtils;
 import org.jboss.resteasy.annotations.providers.jaxb.Wrapped;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,9 +30,9 @@ import com.dell.dsg.domain.ComputerSystemBase;
  * 
  */
 @Controller
-@Path(DsgpApi.API_URL)
+@Path(ComputerSystemApi.API_URL)
 @Produces({ MediaType.APPLICATION_JSON })
-public class DsgpApi {
+public class ComputerSystemApi {
 	public static final String API_URL = "/api";
 
 	@Autowired
@@ -69,4 +73,20 @@ public class DsgpApi {
 		return adapter.getComputerById(id);
 	}
 
+	@GET
+	@Path("computers")
+	@Wrapped
+	public List<ComputerSystemBase> searchComputerSystems(
+			@QueryParam("key") String key) {
+		if (StringUtils.isEmpty(key)) {
+			throw new BadRequestException ("key parameter is not defined");
+		}
+		List<ComputerSystemBase> result = new ArrayList<ComputerSystemBase>();
+		for (Product product: factory.getActiveProducts()) {
+			ComputerSystemAdapter adapter = factory.getAdapter(product.getPid());
+			result.addAll(adapter.searchComputerSystems(key));
+		}
+		return result;
+	}
+	
 }

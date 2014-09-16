@@ -96,12 +96,13 @@ public class ComputerSystem extends ComputerSystemBase {
 		setId(s_(comp.get("id")));
 		setName(s_(comp.get("name")));
 		setOsName(s_(comp.get("os_name")));
+		setOsArchitecture("x64");
 		//TODO data model for k1000? 
 		setModel(s_(comp.get("cs_model")));
 		setBiosName(s_(comp.get("cs_model")));
 		setDomain(s_(comp.get("cs_model")));
 		setManufacture(s_(comp.get("cs_model")));
-		setProcessor(s_(comp.get("cs_model")));
+		setProcessor("1");
 	}
 
 	@Override

@@ -22,4 +22,10 @@ public interface ComputerSystemAdapter {
 	 */
 	public ComputerSystem getComputerById(String id);
 
+	/**
+	 * @param key - search string
+	 * @return computer systems that contain search string
+	 */
+	public List<ComputerSystemBase> searchComputerSystems(String key);
+
 }

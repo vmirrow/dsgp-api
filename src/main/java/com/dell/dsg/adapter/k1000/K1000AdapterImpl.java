@@ -77,6 +77,18 @@ public class K1000AdapterImpl implements ComputerSystemAdapter {
 		response.close();
 		return computer;
 	}
+
+	public List<ComputerSystemBase> searchComputerSystems(String key) {
+		List<ComputerSystemBase> result = new ArrayList<ComputerSystemBase>(); 
+		List<ComputerSystemBase> computers =  getComputerSystems();
+		for (ComputerSystemBase comp : computers) {
+			if (comp.toString().contains(key)) {
+				result.add(comp);
+			}
+		}
+		return result;
+	}
+
 	
 	private ResteasyWebTarget getTarget() {
 		// TODO don't create in every call
