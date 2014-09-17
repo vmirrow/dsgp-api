@@ -1,9 +1,13 @@
 package com.dell.dsg.domain;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.springframework.util.CollectionUtils;
 
 public class ComputerSystem extends ComputerSystemBase {
 	private boolean virtual;
@@ -17,9 +21,10 @@ public class ComputerSystem extends ComputerSystemBase {
 	private String model;
 	private String processor;
 	private Long ramTotal;
+	private Set<Disk> disks; 
 
-	public ComputerSystem(String prodId) {
-		super(prodId);
+	public ComputerSystem(String pid) {
+		super(pid);
 	}
 	
 	public boolean isVirtual() {
@@ -88,8 +93,17 @@ public class ComputerSystem extends ComputerSystemBase {
 	public void setRamTotal(Long ramTotal) {
 		this.ramTotal = ramTotal;
 	}
+	
 
-	@SuppressWarnings("rawtypes")
+	public Set<Disk> getDisks() {
+		return disks;
+	}
+
+	public void setDisks(Set<Disk> disks) {
+		this.disks = disks;
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void mapK1000(Map info) {
 		Map comp = (Map) info.get("machine");
 		Map os = (Map) comp.get("operating_system");
@@ -106,6 +120,13 @@ public class ComputerSystem extends ComputerSystemBase {
 		setModel(s_(hardware.get("Model")));
 		setManufacture(s_(hardware.get("Manufacturer")));
 		setProcessor(s_(hardware.get("Processors")));
+		List<Map> diskMap = (List<Map>) comp.get("disks");
+		if (!CollectionUtils.isEmpty(diskMap)) {
+			 this.disks = new HashSet<Disk>();
+			for (Map disk : diskMap) {
+				this.disks.add(new Disk(getPid()).mapK1000(disk));
+			}
+		}
 	}
 
 	@Override

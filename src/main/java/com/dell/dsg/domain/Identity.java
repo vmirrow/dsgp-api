@@ -4,11 +4,11 @@ package com.dell.dsg.domain;
 public class Identity extends Mapable {
 
 	private String id;
-	private String prodId;
+	private String pid;
 	
-	public Identity(String prodId) {
+	public Identity(String pid) {
 		super();
-		this.prodId = prodId;
+		this.pid = pid;
 	}
 	
 	public String getId() {
@@ -17,11 +17,11 @@ public class Identity extends Mapable {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public String getProdId() {
-		return prodId;
+	public String getPid() {
+		return pid;
 	}
-	public void setProdId(String prodId) {
-		this.prodId = prodId;
+	public void setPid(String pid) {
+		this.pid = pid;
 	}
 	
 }
