@@ -13,7 +13,7 @@ import com.dell.dsg.adapter.ComputerSystemFactory;
 import com.dell.dsg.adapter.domain.Product;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:springmvc-servlet.xml" })
+@ContextConfiguration(locations = { "classpath:spring-context.xml" })
 public class ComputerSystemFactoryTest {
 	static final Logger logger = Logger
 			.getLogger(ComputerSystemFactoryTest.class);

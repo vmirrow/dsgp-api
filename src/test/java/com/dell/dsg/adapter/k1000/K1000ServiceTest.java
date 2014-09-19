@@ -15,7 +15,7 @@ import com.dell.dsg.domain.ComputerSystem;
 import com.dell.dsg.domain.ComputerSystemBase;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:springmvc-servlet.xml" })
+@ContextConfiguration(locations = { "classpath:spring-context.xml" })
 public class K1000ServiceTest {
 	static final Logger logger = Logger.getLogger(K1000ServiceTest.class);
 
