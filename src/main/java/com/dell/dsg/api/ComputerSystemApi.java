@@ -22,8 +22,6 @@ import com.dell.dsg.adapter.ComputerSystemFactory;
 import com.dell.dsg.adapter.domain.Product;
 import com.dell.dsg.domain.ComputerSystem;
 import com.dell.dsg.domain.ComputerSystemBase;
-import com.wordnik.swagger.annotations.Api;
-import com.wordnik.swagger.annotations.ApiOperation;
 
 /**
  * DSG Platform API
@@ -37,7 +35,6 @@ import com.wordnik.swagger.annotations.ApiOperation;
 // @Produces({ MediaType.APPLICATION_JSON })
 @Produces({ "application/dsg.api.v1+json" })
 @Consumes({ "application/dsg.api.v1+json" })
-@Api(value = "/api", description = "DSG platform API")
 public class ComputerSystemApi {
 	public static final String API_URL = "/api";
 
@@ -53,7 +50,6 @@ public class ComputerSystemApi {
 	@GET
 	@Path("products")
 	@Wrapped
-	@ApiOperation(value = "list of products", response = List.class)
 	public List<Product> getProducts() {
 		return factory.getActiveProducts();
 	}

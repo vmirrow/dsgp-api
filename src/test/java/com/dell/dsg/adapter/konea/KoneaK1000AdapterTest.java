@@ -1,4 +1,4 @@
-package com.dell.dsg.adapter.k1000;
+package com.dell.dsg.adapter.konea;
 
 import java.util.List;
 
@@ -16,15 +16,15 @@ import com.dell.dsg.domain.ComputerSystemBase;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:spring-context.xml" })
-public class K1000ServiceTest {
-	static final Logger logger = Logger.getLogger(K1000ServiceTest.class);
+public class KoneaK1000AdapterTest {
+	static final Logger logger = Logger.getLogger(KoneaK1000AdapterTest.class);
 
 	@Autowired
 	ComputerSystemFactory factory;
 
 	@Test
 	public void testGetComputerSystems() {
-		ComputerSystemAdapter adapter = factory.getAdapter("k1d1");
+		ComputerSystemAdapter adapter = factory.getAdapter("k1d3");
 		List<ComputerSystemBase> computers = adapter.getComputerSystems();
 		for (ComputerSystemBase comp : computers) {
 			logger.info(comp);
@@ -33,9 +33,9 @@ public class K1000ServiceTest {
 
 	@Test
 	public void testGetComputerSystemById() {
-		ComputerSystemAdapter adapter = factory.getAdapter("k1d1");
+		ComputerSystemAdapter adapter = factory.getAdapter("k1d3");
 		ComputerSystem computer = adapter.getComputerById("200");
 		logger.info(computer);
 	}
-
+	
 }

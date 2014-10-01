@@ -8,6 +8,7 @@ import java.util.Properties;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -48,6 +49,8 @@ public class K1000AdapterImpl implements ComputerSystemAdapter {
 	public List<ComputerSystemBase> getComputerSystems() {
 		Response response = getTarget().path("machines").request()
 				.accept(MediaType.APPLICATION_JSON_TYPE).get();
+		Builder bbb = getTarget().path("machines").request();
+		
 		if (response.getStatus() != HttpStatus.OK.value()) {
 			logger.error(response.getStatusInfo());
 			throw new NotFoundException();
@@ -64,6 +67,7 @@ public class K1000AdapterImpl implements ComputerSystemAdapter {
 		return computers;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public ComputerSystem getComputerById(String id) {
 		Response response = getTarget().path("machine/" + id).request()
 				.accept(MediaType.APPLICATION_JSON_TYPE).get();

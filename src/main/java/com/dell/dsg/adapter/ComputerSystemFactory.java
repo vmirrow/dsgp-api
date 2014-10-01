@@ -12,6 +12,7 @@ import org.springframework.util.StringUtils;
 
 import com.dell.dsg.adapter.domain.Product;
 import com.dell.dsg.adapter.k1000.K1000AdapterImpl;
+import com.dell.dsg.adapter.konea.KoneaK1000AdapterImpl;
 
 //TODO Spring factory bean
 /**
@@ -29,8 +30,7 @@ public class ComputerSystemFactory {
 	public List<Product> getActiveProducts() {
 		String strPids = props.getProperty("pids.active");
 		if (!StringUtils.hasText(strPids)) {
-			throw new NotFoundException(
-					"No active products configured");
+			throw new NotFoundException("No active products configured");
 		}
 		String[] pids = strPids.split(",");
 		List<Product> products = new ArrayList<Product>();
@@ -44,9 +44,8 @@ public class ComputerSystemFactory {
 	 * @return product by id
 	 */
 	public Product getProduct(String pid) {
-		validatePid(pid);
-		return new Product(pid, props.getProperty(pid + ".type"),
-				props.getProperty(pid + ".host"));
+		String type = validateAndGetType(pid);
+		return new Product(pid, type, props.getProperty(pid + ".host"));
 	}
 
 	/**
@@ -54,14 +53,19 @@ public class ComputerSystemFactory {
 	 * @return implementation of adapter by pid
 	 */
 	public ComputerSystemAdapter getAdapter(String pid) {
-		validatePid(pid);
-		return new K1000AdapterImpl(pid, props);
+		String type = validateAndGetType(pid);
+		if (type.equals(AdapterType.KONEAK1000.name())) {
+			return new KoneaK1000AdapterImpl(pid, props);
+		} else {
+			return new K1000AdapterImpl(pid, props);
+		}
 	}
 
-	private void validatePid(String pid) {
+	private String validateAndGetType(String pid) {
 		if (!StringUtils.hasText(props.getProperty(pid + ".type"))) {
 			throw new NotFoundException("Product id " + pid
 					+ " is not supported");
 		}
+		return props.getProperty(pid + ".type");
 	}
 }
